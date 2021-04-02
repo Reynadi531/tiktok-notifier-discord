@@ -1,0 +1,8 @@
+### dotenv ###
+.env
+
+### now ###
+.now
+.vercel
+
+/node_modules
