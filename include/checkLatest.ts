@@ -18,9 +18,9 @@ export default async function(username: string) {
             status = false
         }
         else if(userVideoCount != latestDBdata.videoCount) {
-            const { text, webVideoUrl } = await videoArray(username, true)
+            const data = await videoArray(username, true)
             await editDB(userVideoCount)
-            await messageSender(webVideoUrl, text)
+            await messageSender(data.webVideoUrl, data.text)
             status = true
         }
     }
