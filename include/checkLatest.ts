@@ -8,6 +8,7 @@ export default async function(username: string) {
     const userVideoCount = await vidCount(username)
     const allDB = await getAll()
     if(allDB.length == 0) {
+        // @ts-ignore
         const { text, webVideoUrl } = await videoArray(username, true)
         await insertDB(Number(userVideoCount))
         await messageSender(webVideoUrl, text)
@@ -19,8 +20,9 @@ export default async function(username: string) {
         }
         else if(userVideoCount != latestDBdata.videoCount) {
             const data = await videoArray(username, true)
-            console.log(data)
+            if(!data) return
             await editDB(userVideoCount)
+            // @ts-ignore
             await messageSender(data.webVideoUrl, data.text)
             status = true
         }

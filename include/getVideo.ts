@@ -1,15 +1,16 @@
 import { user } from 'tiktok-scraper'
 
 export default async function(username: string, latest: boolean) {
-    let returnData;
     try {
-        const videoArray = (await user(username)).collector
-        if(latest == true) returnData = videoArray[0];
-        else returnData = videoArray
+        if(latest == true) {
+            const videoArray = await user(username, { number: 1 })
+            return videoArray
+        }
+        else if(latest == false) {
+            const videoArray = await user(username, { number: 3 })
+            return videoArray
+        }
     } catch (error) {
-        console.error(error)
-        returnData = null        
+        console.error(error)     
     }
-
-    return returnData
 }
